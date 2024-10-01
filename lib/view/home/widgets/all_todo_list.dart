@@ -5,6 +5,7 @@ import 'package:flutter_todo_riverpod/providers/task_item_provier.dart';
 import 'package:flutter_todo_riverpod/utils/const/assets.dart';
 import 'package:flutter_todo_riverpod/utils/const/colors.dart';
 import 'package:flutter_todo_riverpod/utils/extensions/date_formatter.dart';
+import 'package:flutter_todo_riverpod/view/home/widgets/no_todo_holer.dart';
 
 class AllTodoList extends ConsumerWidget {
   const AllTodoList({super.key});
@@ -15,21 +16,7 @@ class AllTodoList extends ConsumerWidget {
 
     return Expanded(
       child: todos.isEmpty
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    empty,
-                    width: 170,
-                  ),
-                  const Text(
-                    'No Tasks Available',
-                    style: TextStyle(fontSize: 17),
-                  )
-                ],
-              ),
-            )
+          ?const  NoTodoHolder()
           : ListView.builder(
               itemCount: todos.length,
               itemBuilder: (context, index) {
