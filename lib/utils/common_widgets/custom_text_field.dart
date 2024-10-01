@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
     this.height,
     this.controller,
     this.suffixIcon,
+    this.readOnly = false,
     this.onSuffixIconPressed, // Callback for press event
     this.minLines = 1, // Default minimum lines
     this.maxLines = 5, // Default maximum lines
@@ -20,19 +21,20 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final Widget? suffixIcon;
-  final VoidCallback? onSuffixIconPressed; 
-  final int minLines; 
-  final int maxLines; 
-
+  final VoidCallback? onSuffixIconPressed;
+  final int minLines;
+  final int maxLines;
+  final bool readOnly;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
       child: TextFormField(
+        readOnly: readOnly,
         controller: controller,
         obscureText: obscureText,
         validator: validator,
-        minLines: minLines, 
+        minLines: minLines,
         maxLines: maxLines,
         decoration: InputDecoration(
           hintText: hintText,
@@ -40,7 +42,7 @@ class CustomTextField extends StatelessWidget {
           fillColor: Colors.white,
           suffixIcon: suffixIcon != null
               ? GestureDetector(
-                  onTap: onSuffixIconPressed, 
+                  onTap: onSuffixIconPressed,
                   child: suffixIcon,
                 )
               : null,

@@ -1,26 +1,34 @@
 import 'package:hive/hive.dart';
-
 import '../model/task_model.dart';
 
 class TodoService {
-  final String boxName = 'todos';
+  static Box<Todo> box = Hive.box<Todo>('todos');
 
-  Future<void> addTodo(Todo todo) async {
-    var box = await Hive.openBox<Todo>(boxName);
+  // Add a new todo
+  static Future<void> addTodo(Todo todo) async {
     await box.add(todo);
-    await box.close();
+    // No need to close the box here
   }
 
-  Future<List<Todo>> getTodos() async {
-    var box = await Hive.openBox<Todo>(boxName);
-    List<Todo> todos = box.values.toList();
-    await box.close();
-    return todos;
+  static Future<void> reAddTodo(int index, Todo todo) async {
+    await box.putAt(index, todo);
+    // No need to close the box here
   }
 
-  Future<void> deleteTodo(int index) async {
-    var box = await Hive.openBox<Todo>(boxName);
-    await box.deleteAt(index);
-    await box.close();
+  // Get the list of todos
+  static Future<List<Todo>> getTodos() async {
+    // Convert values to a List<Todo> and return
+    return box.values.toList().cast<Todo>();
+  }
+
+  // Delete a todo by index
+  static Future<void> deleteTodo(int key) async {
+    await box.delete(key);
+    // No need to close the box here
+  }
+
+  // Optional: Update a todo at a specific index
+  static Future<void> updateTodo(int key, Todo updatedTodo) async {
+    await box.put(key, updatedTodo);
   }
 }
