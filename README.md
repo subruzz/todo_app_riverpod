@@ -1,6 +1,6 @@
 # flutter_todo_riverpod
 
-A new Flutter project.
+A todo app built with flutter ,hive and riverpod
 
 ## Getting Started
 
